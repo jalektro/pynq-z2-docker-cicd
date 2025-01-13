@@ -18,7 +18,7 @@ USER builder:builders
 
 WORKDIR /build
 ADD ./requirements.txt .
-ADD ./app.py .
+ADD ./led.py .
 
 # Maak een virtuele omgeving en installeer Python dependencies
 RUN --network=none python3 -m venv venv && \
