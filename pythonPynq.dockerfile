@@ -46,7 +46,7 @@ USER app:runners
 
 # Kopieer de virtuele omgeving en het script naar de app fase
 COPY --from=build /build/venv /app/venv
-COPY --from=build /build/app.py /app/led.py
+COPY --from=build /build/led.py /app/led.py
 
 # Zorg ervoor dat het script uitvoerbaar is
 RUN chmod +x /app/led.py
