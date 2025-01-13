@@ -46,12 +46,12 @@ USER app:runners
 
 # Kopieer de virtuele omgeving en het script naar de app fase
 COPY --from=build /build/venv /app/venv
-COPY --from=build /build/app.py /app/app.py
+COPY --from=build /build/app.py /app/led.py
 
 # Zorg ervoor dat het script uitvoerbaar is
-RUN chmod +x /app/app.py
+RUN chmod +x /app/led.py
 
 # Stel de Python virtuele omgeving in en voer het script uit
 ENV PATH="/app/venv/bin:$PATH"
 
-ENTRYPOINT ["python3", "/app/app.py"]
+ENTRYPOINT ["python3", "/app/led.py"]
