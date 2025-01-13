@@ -50,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           platforms: linux/arm/v7
-          file: pythonPynq.Dockerfile
+          file: pythonPynq.dockerfile
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
