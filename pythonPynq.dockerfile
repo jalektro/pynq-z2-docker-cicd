@@ -20,13 +20,19 @@ WORKDIR /build
 ADD ./requirements.txt .
 ADD ./led.py .
 
+# Zorg dat het script uitvoerbaar is in de buildfase
+#RUN chmod +x /build/led.py
+
 # Maak een virtuele omgeving en installeer Python dependencies
-RUN     --network=none python3 -m venv venv && \
-        source venv/bin/activate && \
-        pip install --no-cache-dir -r requirements.txt
+RUN  --network=none python3 -m venv venv && \
+      source venv/bin/activate && \
+      pip install --no-cache-dir -r requirements.txt
 
 # App fase
 FROM --platform=$PLATFORM docker.io/arm32v7/debian:stable AS app
+
+# Installeer python3 in de app-fase
+RUN apt-get update && apt-get install -y python3 python3-pip
 
 LABEL org.opencontainers.image.authors="Robert Jansen <jansenrobert4@gmail.com>"
 LABEL org.opencontainers.image.documentation="https://github.com/jalektro/pynq-z2-docker-cicd"
@@ -49,7 +55,8 @@ COPY --from=build /build/venv /app/venv
 COPY --from=build /build/led.py /app/led.py
 
 # Zorg ervoor dat het script uitvoerbaar is
-RUN chmod +x /app/led.py
+#COPY ./led.py /app/led.py
+#RUN chmod +x /app/led.py
 
 # Stel de Python virtuele omgeving in en voer het script uit
 ENV PATH="/app/venv/bin:$PATH"
