@@ -21,7 +21,9 @@ ADD ./requirements.txt .
 ADD ./led.py .
 
 # Maak een virtuele omgeving en installeer Python dependencies
-RUN     pip install --no-cache-dir -r requirements.txt
+RUN     --network=none python3 -m venv venv && \
+        source venv/bin/activate && \
+        pip install --no-cache-dir -r requirements.txt
 
 # App fase
 FROM --platform=$PLATFORM docker.io/arm32v7/debian:stable AS app
